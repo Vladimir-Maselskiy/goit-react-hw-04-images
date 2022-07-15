@@ -41,35 +41,26 @@ export function App() {
   }, [search, currentPage]);
 
   useEffect(() => {
-    console.log(totalHits.current);
     data.length >= totalHits.current
       ? setLoadMoreStatus(false)
       : setLoadMoreStatus(true);
   }, [data, totalHits]);
 
-  function onSubmit(event) {
+  const onSubmit = event => {
     event.preventDefault();
     setCurrentPage(1);
     setSearch(event.currentTarget.elements.searchField.value);
-  }
+  };
 
-  function onLoadMoreButtonClick() {
+  const onLoadMoreButtonClick = () => {
     setCurrentPage(currentPage + 1);
-  }
+  };
 
-  function setDataForModal(src, imageTitle) {
-    setLargeImageUrl(src);
-    setImageTitle(imageTitle);
-  }
-
-  function onClick(event) {
-    if (event.target.tagName === 'IMG') {
-      const largeImageUrl = event.target.dataset.largeimageurl;
-      const imageTitle = event.target.alt;
-      setDataForModal(largeImageUrl, imageTitle);
-      isModalOpen(true);
-    }
-  }
+  const onClick = (largeImageURL, tags) => {
+    setLargeImageUrl(largeImageURL);
+    setImageTitle(tags);
+    setIsModalOpen(true);
+  };
 
   return (
     <AppStyled>
@@ -86,7 +77,7 @@ export function App() {
       )}
 
       {isModalOpen && (
-        <Modal isModalOpen={setIsModalOpen}>
+        <Modal setIsModalOpen={setIsModalOpen}>
           <ImageStyled src={largeImageUrl} alt={imageTitle} />
         </Modal>
       )}

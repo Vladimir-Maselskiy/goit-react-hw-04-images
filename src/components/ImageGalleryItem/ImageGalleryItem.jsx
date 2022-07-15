@@ -4,13 +4,14 @@ import { ImageGalleryItemStyled, ImageStyled } from './ImageGalleryItem.styled';
 export default function ImageGalleryItem(props) {
   const {
     item: { webformatURL, tags, largeImageURL },
+    onClick,
   } = props;
   return (
     <ImageGalleryItemStyled>
       <ImageStyled
         src={webformatURL}
         alt={tags}
-        data-largeimageurl={largeImageURL}
+        onClick={() => onClick(largeImageURL, tags)}
       />
     </ImageGalleryItemStyled>
   );
@@ -22,4 +23,5 @@ ImageGalleryItem.propTypes = {
     tags: PropTypes.string.isRequired,
     largeImageURL: PropTypes.string.isRequired,
   }).isRequired,
+  onClick: PropTypes.func.isRequired,
 };

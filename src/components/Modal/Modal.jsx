@@ -2,24 +2,24 @@ import PropTypes from 'prop-types';
 import { Overlay, ModalStyled } from './Modal.styled';
 import { useEffect } from 'react';
 
-export default function Modal({ isModalOpen, children }) {
+export default function Modal({ setIsModalOpen, children }) {
   useEffect(() => {
     window.addEventListener('keydown', onKeyDown);
 
     return () => window.removeEventListener('keydown', onKeyDown);
   });
 
-  function onKeyDown(event) {
+  const onKeyDown = event => {
     if (event.key === 'Escape') {
-      isModalOpen(false);
+      setIsModalOpen(false);
     }
-  }
+  };
 
-  function onClick(event) {
+  const onClick = event => {
     if (event.target === event.currentTarget) {
-      isModalOpen(false);
+      setIsModalOpen(false);
     }
-  }
+  };
 
   return (
     <Overlay onClick={onClick}>
@@ -29,6 +29,6 @@ export default function Modal({ isModalOpen, children }) {
 }
 
 Modal.propTypes = {
-  isModalOpen: PropTypes.func.isRequired,
+  setIsModalOpen: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };

@@ -6,17 +6,18 @@ export default function ImageGallery(props) {
   const { onClick, data } = props;
 
   return (
-    <GalleryStyled onClick={onClick}>
+    <GalleryStyled>
       {data.length > 0 &&
         data.map(item => {
-          return <ImageGalleryItem key={item.id} item={item} />;
+          return (
+            <ImageGalleryItem key={item.id} item={item} onClick={onClick} />
+          );
         })}
     </GalleryStyled>
   );
 }
 
 ImageGallery.propTypes = {
-  isModalOpen: PropTypes.func.isRequired,
-  setDataForModal: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   data: PropTypes.array.isRequired,
 };
