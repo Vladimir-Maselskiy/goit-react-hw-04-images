@@ -62,14 +62,19 @@ export function App() {
     setImageTitle(imageTitle);
   }
 
+  function onClick(event) {
+    if (event.target.tagName === 'IMG') {
+      const largeImageUrl = event.target.dataset.largeimageurl;
+      const imageTitle = event.target.alt;
+      setDataForModal(largeImageUrl, imageTitle);
+      isModalOpen(true);
+    }
+  }
+
   return (
     <AppStyled>
       <Searchbar onSubmit={onSubmit} />
-      <ImageGallery
-        isModalOpen={setIsModalOpen}
-        setDataForModal={setDataForModal}
-        data={data}
-      />
+      <ImageGallery onClick={onClick} data={data} />
       {loadMoreStatus && (
         <Button onLoadMoreButtonClick={onLoadMoreButtonClick} />
       )}
